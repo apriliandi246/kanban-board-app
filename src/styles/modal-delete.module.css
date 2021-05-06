@@ -1,0 +1,58 @@
+.modal {
+   width: 400px;
+   background-color: #ffffff;
+   padding: 32px 32px 24px 32px;
+   box-shadow: 0px 9px 28px 8px #0000000d, 0px 6px 16px #00000014,
+      0px 3px 6px -4px #0000001f;
+}
+
+.modal__head {
+   display: flex;
+   margin-bottom: 8px;
+   align-items: center;
+}
+
+.modal__head_icon {
+   margin-right: 17.5px;
+}
+
+.modal__head_title {
+   color: #262626;
+   font: bold 16px "Rubik", sans-serif;
+}
+
+.modal__desc {
+   color: #262626;
+   line-height: 22px;
+   margin: 0 0 24px 40px;
+   font: 400 14px "Rubik", sans-serif;
+}
+
+.modal__buttons {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+}
+
+.modal__cancel_btn {
+   color: #262626;
+   margin-right: 8px;
+   background-color: #ffffff;
+   border: 1px solid #d9d9d9;
+}
+
+.modal__delete_btn {
+   color: #ffffff;
+   border: 1px solid #eb5757;
+   background-color: #eb5757;
+}
+
+.modal__cancel_btn,
+.modal__delete_btn {
+   outline: none;
+   font-size: 14px;
+   cursor: pointer;
+   border-radius: 2px;
+   padding: 5px 16px 5px 16px;
+   font-family: "Rubik", sans-serif;
+}

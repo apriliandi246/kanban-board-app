@@ -1,0 +1,36 @@
+.group {
+   width: 306px;
+   padding: 12px;
+   border-radius: 4px;
+   margin-right: 16px;
+}
+
+.group__label {
+   width: 90px;
+   border-radius: 2px;
+   margin-bottom: 6px;
+   padding: 1px 8px 1px 8px;
+   font: 400 12px "Rubik", sans-serif;
+}
+
+.group__date {
+   color: #2f3136;
+   margin-bottom: 10px;
+   font: bold 12px "Rubik", sans-serif;
+}
+
+.group__add_btn {
+   border: none;
+   outline: none;
+   display: flex;
+   color: #2f3136;
+   margin-top: 2px;
+   cursor: pointer;
+   align-items: center;
+   background-color: transparent;
+   font: 400 14px "Rubik", sans-serif;
+}
+
+.group__add_icon {
+   margin: 0 8px 0 2px;
+}

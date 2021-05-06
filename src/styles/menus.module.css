@@ -1,0 +1,48 @@
+.menus {
+   right: 0;
+   z-index: 1;
+   width: 138px;
+   padding: 13px 0;
+   margin-top: 230px;
+   border-radius: 4px;
+   position: absolute;
+   background-color: #ffffff;
+   border: 1px solid #e4e4e8;
+   animation: opacityAnimation 0.1s ease-in-out;
+}
+
+.menus__btn {
+   width: 100%;
+   border: none;
+   outline: none;
+   display: flex;
+   padding: 10px;
+   cursor: pointer;
+   padding-left: 23px;
+   align-items: center;
+   background-color: #ffffff;
+   font: 400 14px "Open Sans", sans-serif;
+}
+
+.menus__btn:hover {
+   color: #5e20b3;
+   background-color: #f5f0fc;
+}
+
+.menus__btn:last-child {
+   margin-bottom: 0;
+}
+
+.menus__icon {
+   margin-right: 14.11px;
+}
+
+@keyframes opacityAnimation {
+   from {
+      opacity: 0;
+   }
+
+   to {
+      opacity: 1;
+   }
+}

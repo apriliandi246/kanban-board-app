@@ -1,0 +1,29 @@
+.container {
+   display: flex;
+}
+
+.sidenav {
+   width: 68px;
+   height: 100vh;
+   background-color: #2f3136;
+}
+
+.sidenav__logo {
+   margin-top: 20px;
+   margin-left: 11px;
+}
+
+.content {
+   margin: 30px 0 50px 130px;
+}
+
+.content__title {
+   color: #2f3136;
+   line-height: 24px;
+   margin-bottom: 24px;
+   font: bold 20px "Rubik", sans-serif;
+}
+
+.content__groups {
+   display: flex;
+}
