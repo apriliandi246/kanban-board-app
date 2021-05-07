@@ -1,14 +1,22 @@
 import Menus from "./Menus";
 import styles from "../styles/item.module.css";
-import { useState } from "react";
+import { updateMenuItem } from "../store/ui/ui";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Item({ todo }) {
-   const [isMenusShow, setStatusMenus] = useState(false);
+export default function Item({ task, groupId }) {
+   const dispatch = useDispatch();
+   const itemMenusId = useSelector((state) => state.ui.currentItemMenu);
+
+   function toggleMenusItem() {
+      itemMenusId === -1
+         ? dispatch(updateMenuItem(task.id))
+         : dispatch(updateMenuItem(-1));
+   }
 
    return (
       <>
          <div className={styles.item}>
-            <h1 className={styles.item__desc}>{todo.todo}</h1>
+            <h1 className={styles.item__desc}>{task.name}</h1>
 
             <div className={styles.item__menus}>
                <div className={styles.item__progress}>
@@ -16,18 +24,20 @@ export default function Item({ todo }) {
                      <div
                         className={styles.item__progress_bar}
                         style={{
-                           width: `${todo.percentage}%`,
+                           width: `${task.progress_percentage}%`,
                            backgroundColor:
-                              todo.percentage === 100 ? "#52C41A" : "#1890ff",
+                              task.progress_percentage === 100
+                                 ? "#52C41A"
+                                 : "#1890ff",
                         }}
                      ></div>
                   </div>
 
-                  {todo.percentage === 100 ? (
+                  {task.progress_percentage === 100 ? (
                      <img src="./fill.png" alt="Complete icon" />
                   ) : (
                      <span className={styles.item__percentage_progress}>
-                        {todo.percentage}%
+                        {task.progress_percentage}%
                      </span>
                   )}
                </div>
@@ -35,11 +45,13 @@ export default function Item({ todo }) {
                <img
                   alt="Menu icon"
                   src="./dot.png"
+                  onClick={toggleMenusItem}
                   className={styles.item__menus_icon}
-                  onClick={() => setStatusMenus((status) => (status = !status))}
                />
 
-               {isMenusShow === true && <Menus />}
+               {itemMenusId === task.id && (
+                  <Menus groupId={groupId} taskId={task.id} />
+               )}
             </div>
          </div>
       </>

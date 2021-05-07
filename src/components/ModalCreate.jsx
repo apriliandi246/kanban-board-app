@@ -1,12 +1,33 @@
 import styles from "../styles/modal-create.module.css";
+import { updateNewTaskModal } from "../store/ui/ui";
+import { useState } from "react";
+import { addTask } from "../store/tasks/tasks";
+import { useDispatch } from "react-redux";
 
-export default function ModalCreate({ onSetStatusModal }) {
+export default function ModalCreate({ groupId }) {
+   const dispatch = useDispatch();
+   const [taskName, setTaskName] = useState("");
+   const [progress, setProgress] = useState("");
+
+   function addNewTask(event) {
+      event.preventDefault();
+
+      dispatch(
+         addTask(groupId === 4 ? 6 : groupId, {
+            name: taskName,
+            progress_percentage: progress,
+         })
+      );
+
+      dispatch(updateNewTaskModal(-1));
+   }
+
    return (
       <div className={styles.modal}>
          <div className={styles.modal__container}>
             <h1 className={styles.modal__title}>Create Task</h1>
 
-            <form>
+            <form onSubmit={addNewTask}>
                <div className={styles.modal__input_form}>
                   <label htmlFor="task-name" className={styles.modal__label}>
                      Task Name
@@ -17,6 +38,7 @@ export default function ModalCreate({ onSetStatusModal }) {
                      id="task-name"
                      className={styles.modal__input}
                      placeholder="example: Build rocket to Mars."
+                     onChange={(event) => setTaskName(event.target.value)}
                   />
                </div>
 
@@ -26,11 +48,12 @@ export default function ModalCreate({ onSetStatusModal }) {
                   </label>
 
                   <input
-                     type="text"
+                     type="number"
                      id="progress"
-                     placeholder="0%"
+                     placeholder="0"
                      className={styles.modal__input}
                      style={{ width: "99px", fontWeight: "400" }}
+                     onChange={(event) => setProgress(event.target.value)}
                   />
                </div>
 
@@ -38,9 +61,7 @@ export default function ModalCreate({ onSetStatusModal }) {
                   <button
                      type="button"
                      className={styles.modal__cancel_btn}
-                     onClick={() =>
-                        onSetStatusModal((status) => (status = !status))
-                     }
+                     onClick={() => dispatch(updateNewTaskModal(-1))}
                   >
                      Cancel
                   </button>

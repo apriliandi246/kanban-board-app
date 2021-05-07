@@ -1,42 +1,57 @@
 import Item from "./Item";
 import NoTask from "./NoTask";
-import { useState } from "react";
+import Skeleton from "./Skeleton";
+import { useEffect } from "react";
 import styles from "../styles/group.module.css";
+import { loadTasks } from "../store/tasks/tasks";
 import ModalCreate from "../components/ModalCreate";
+import { updateNewTaskModal } from "../store/ui/ui";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Group({ task }) {
-   const [statusModal, setStatusModal] = useState(false);
+export default function Group({ groupId, type }) {
+   const dispatch = useDispatch();
+   const tasks = useSelector((state) => state.entities[type]);
+   const loading = useSelector((state) => state.entities.loading);
+   const statusModal = useSelector((state) => state.ui.currentNewTaskModal);
+
+   useEffect(() => {
+      dispatch(loadTasks());
+   }, []);
 
    return (
       <>
          <div
             className={styles.group}
             style={{
-               border: groupStyles[task - 1].border,
-               backgroundColor: groupStyles[task - 1].bgColor,
+               border: groupStyles[groupId - 1].border,
+               backgroundColor: groupStyles[groupId - 1].bgColor,
             }}
          >
             <div
                className={styles.group__label}
                style={{
-                  color: groupStyles[task - 1].labelColor,
-                  border: groupStyles[task - 1].labelBorder,
-                  backgroundColor: groupStyles[task - 1].labelBgColor,
+                  color: groupStyles[groupId - 1].labelColor,
+                  border: groupStyles[groupId - 1].labelBorder,
+                  backgroundColor: groupStyles[groupId - 1].labelBgColor,
                }}
             >
-               Group Task {task}
+               Group Task {groupId}
             </div>
-            <div className={styles.group__date}>{dates[task - 1]}</div>
+            <div className={styles.group__date}>{dates[groupId - 1]}</div>
 
-            {todos.length === 0 ? (
+            {loading === true ? (
+               <Skeleton />
+            ) : tasks.length === 0 ? (
                <NoTask />
             ) : (
-               todos.map((data) => <Item key={data.todo} todo={data} />)
+               tasks.map((task) => (
+                  <Item key={task.id} task={task} groupId={groupId} />
+               ))
             )}
 
             <button
                className={styles.group__add_btn}
-               onClick={() => setStatusModal((status) => (status = !status))}
+               onClick={() => dispatch(updateNewTaskModal(groupId))}
             >
                <img
                   alt="Add icon"
@@ -47,9 +62,7 @@ export default function Group({ task }) {
             </button>
          </div>
 
-         {statusModal === true && (
-            <ModalCreate onSetStatusModal={setStatusModal} />
-         )}
+         {statusModal === groupId && <ModalCreate groupId={groupId} />}
       </>
    );
 }
@@ -89,64 +102,5 @@ const groupStyles = [
       labelBorder: "1px solid #b7eb8f",
       labelColor: "#52c41a",
       labelBgColor: "#f6ffed",
-   },
-];
-
-const todos = [
-   {
-      todo: "Redesigned the zero-g dogie bags. No more spills!",
-      percentage: 80,
-   },
-   {
-      todo: "Redesigned mobile web",
-      percentage: 100,
-   },
-   {
-      todo: "Redesigned the zero-g dogie bags. No more spills!",
-      percentage: 80,
-   },
-   {
-      todo: "Redesigned mobile web",
-      percentage: 100,
-   },
-   {
-      todo: "Redesigned the zero-g dogie bags. No more spills!",
-      percentage: 80,
-   },
-   {
-      todo: "Redesigned mobile web",
-      percentage: 100,
-   },
-   {
-      todo: "Redesigned the zero-g dogie bags. No more spills!",
-      percentage: 80,
-   },
-   {
-      todo: "Redesigned mobile web",
-      percentage: 100,
-   },
-   {
-      todo: "Redesigned the zero-g dogie bags. No more spills!",
-      percentage: 80,
-   },
-   {
-      todo: "Redesigned mobile web",
-      percentage: 100,
-   },
-   {
-      todo: "Redesigned the zero-g dogie bags. No more spills!",
-      percentage: 80,
-   },
-   {
-      todo: "Redesigned mobile web",
-      percentage: 100,
-   },
-   {
-      todo: "Redesigned the zero-g dogie bags. No more spills!",
-      percentage: 80,
-   },
-   {
-      todo: "Redesigned mobile web",
-      percentage: 100,
    },
 ];
