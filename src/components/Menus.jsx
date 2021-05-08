@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import styles from "../styles/menus.module.css";
-import { updateMenuItem } from "../store/ui/ui";
-import { deleteTask, moveTask } from "../store/tasks/tasks";
+import { moveTask } from "../store/tasks/tasks";
+import { updateMenuItem, updateDeleteTaskModal } from "../store/ui/ui";
 
 export default function Menus({ groupId, taskId }) {
    const dispatch = useDispatch();
@@ -25,11 +25,6 @@ export default function Menus({ groupId, taskId }) {
             moveGroups[groupId - 1].moveRight
          )
       );
-      dispatch(updateMenuItem(-1));
-   }
-
-   function removeTask() {
-      dispatch(deleteTask(groupId === 4 ? 6 : groupId, taskId));
       dispatch(updateMenuItem(-1));
    }
 
@@ -66,7 +61,10 @@ export default function Menus({ groupId, taskId }) {
             Edit
          </button>
 
-         <button className={styles.menus__btn} onClick={removeTask}>
+         <button
+            className={styles.menus__btn}
+            onClick={() => dispatch(updateDeleteTaskModal(taskId))}
+         >
             <img
                alt="Trash icon"
                src="./trash.png"

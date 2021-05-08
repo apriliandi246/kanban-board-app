@@ -1,4 +1,5 @@
 import Menus from "./Menus";
+import ModalDelete from "./ModalDelete";
 import styles from "../styles/item.module.css";
 import { updateMenuItem } from "../store/ui/ui";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Item({ task, groupId }) {
    const dispatch = useDispatch();
    const itemMenusId = useSelector((state) => state.ui.currentItemMenu);
+   const itemModalDelete = useSelector(
+      (state) => state.ui.currentDeleteTaskModal
+   );
 
    function toggleMenusItem() {
       dispatch(updateMenuItem(task.id));
@@ -56,6 +60,10 @@ export default function Item({ task, groupId }) {
                )}
             </div>
          </div>
+
+         {itemModalDelete === task.id && (
+            <ModalDelete taskId={task.id} groupId={groupId} />
+         )}
       </>
    );
 }
