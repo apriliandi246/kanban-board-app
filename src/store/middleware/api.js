@@ -1,10 +1,10 @@
-import * as actions from "../api";
+import { apiCallBegan } from "../api";
 
 const API_KEY =
    "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MjA1NzE1MDN9.2xkLKvkY6R4RczyhI5Ke8h_GzrBDF7vAkr5hpDGDyqY";
 
 const api = ({ dispatch }) => (next) => async (action) => {
-   if (action.type !== actions.apiCallBegan.type) return next(action);
+   if (action.type !== apiCallBegan.type) return next(action);
 
    const {
       url,

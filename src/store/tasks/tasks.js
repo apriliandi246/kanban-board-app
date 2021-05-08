@@ -1,4 +1,4 @@
-import { apiCallBegan } from "../api.js";
+import { apiCallBegan } from "../api";
 import { createSlice } from "@reduxjs/toolkit";
 
 const slice = createSlice({
