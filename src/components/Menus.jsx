@@ -89,7 +89,7 @@ const moveGroups = [
    },
    {
       moveLeft: 2,
-      moveRight: 3,
+      moveRight: 6,
    },
    {
       moveLeft: 3,

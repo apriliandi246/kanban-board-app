@@ -81,6 +81,11 @@
    font-family: "Rubik", sans-serif;
 }
 
+.modal__save_btn:disabled {
+   cursor: default;
+   background-color: #eb5757b3;
+}
+
 @keyframes opacityAnimation {
    from {
       opacity: 0;

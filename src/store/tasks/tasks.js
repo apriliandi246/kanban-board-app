@@ -179,7 +179,10 @@ export const addTask = (groupId, { name, progress_percentage }) =>
       method: "POST",
       onSuccess: addedTask.type,
       url: url + `todos/${groupId}/items`,
-      data: { name, progress_percentage: parseInt(progress_percentage) },
+      data: {
+         name: name.trim(),
+         progress_percentage: parseInt(progress_percentage),
+      },
    });
 
 export const deleteTask = (groupId, taskId) =>

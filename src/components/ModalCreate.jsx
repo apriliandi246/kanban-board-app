@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 export default function ModalCreate({ groupId }) {
    const dispatch = useDispatch();
    const [taskName, setTaskName] = useState("");
-   const [progress, setProgress] = useState("");
+   const [progress, setProgress] = useState(0);
 
    function addNewTask(event) {
       event.preventDefault();
@@ -36,6 +36,7 @@ export default function ModalCreate({ groupId }) {
                   <input
                      type="text"
                      id="task-name"
+                     autoComplete="off"
                      className={styles.modal__input}
                      placeholder="example: Build rocket to Mars."
                      onChange={(event) => setTaskName(event.target.value)}
@@ -48,9 +49,12 @@ export default function ModalCreate({ groupId }) {
                   </label>
 
                   <input
+                     min="1"
+                     max="100"
                      type="number"
                      id="progress"
-                     placeholder="0"
+                     placeholder="0%"
+                     autoComplete="off"
                      className={styles.modal__input}
                      style={{ width: "99px", fontWeight: "400" }}
                      onChange={(event) => setProgress(event.target.value)}
@@ -66,7 +70,11 @@ export default function ModalCreate({ groupId }) {
                      Cancel
                   </button>
 
-                  <button type="submit" className={styles.modal__save_btn}>
+                  <button
+                     type="submit"
+                     className={styles.modal__save_btn}
+                     disabled={taskName === "" || progress === 0}
+                  >
                      Save Task
                   </button>
                </div>

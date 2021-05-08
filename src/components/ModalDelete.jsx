@@ -5,10 +5,11 @@ export default function ModalDelete() {
       <div className={styles.modal}>
          <div className={styles.modal__head}>
             <img
+               alt="Warn icon"
                src="./warn.png"
                className={styles.modal__head_icon}
-               alt="Warn icon"
             />
+
             <h1 className={styles.modal__head_title}>Delete Task</h1>
          </div>
 

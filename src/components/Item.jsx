@@ -8,9 +8,7 @@ export default function Item({ task, groupId }) {
    const itemMenusId = useSelector((state) => state.ui.currentItemMenu);
 
    function toggleMenusItem() {
-      itemMenusId === -1
-         ? dispatch(updateMenuItem(task.id))
-         : dispatch(updateMenuItem(-1));
+      dispatch(updateMenuItem(task.id));
    }
 
    return (
@@ -42,12 +40,16 @@ export default function Item({ task, groupId }) {
                   )}
                </div>
 
-               <img
-                  alt="Menu icon"
-                  src="./dot.png"
+               <button
                   onClick={toggleMenusItem}
-                  className={styles.item__menus_icon}
-               />
+                  className={styles.item__menus_btn}
+               >
+                  <img
+                     alt="Menu icon"
+                     src="./dot.png"
+                     className={styles.item__menus_icon}
+                  />
+               </button>
 
                {itemMenusId === task.id && (
                   <Menus groupId={groupId} taskId={task.id} />

@@ -40,7 +40,11 @@ export default function Group({ groupId, type }) {
             <div className={styles.group__date}>{dates[groupId - 1]}</div>
 
             {loading === true ? (
-               <Skeleton />
+               <>
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+               </>
             ) : tasks.length === 0 ? (
                <NoTask />
             ) : (
