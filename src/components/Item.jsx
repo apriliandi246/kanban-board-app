@@ -1,5 +1,6 @@
 import Menus from "./Menus";
 import ModalDelete from "./ModalDelete";
+import ModalEditTask from "./ModalEditTask";
 import styles from "../styles/item.module.css";
 import { updateMenuItem } from "../store/ui/ui";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Item({ task, groupId }) {
    const dispatch = useDispatch();
    const itemMenusId = useSelector((state) => state.ui.currentItemMenu);
+   const itemModalEdit = useSelector((state) => state.ui.currentEditTaskModal);
    const itemModalDelete = useSelector(
       (state) => state.ui.currentDeleteTaskModal
    );
@@ -63,6 +65,15 @@ export default function Item({ task, groupId }) {
 
          {itemModalDelete === task.id && (
             <ModalDelete taskId={task.id} groupId={groupId} />
+         )}
+
+         {itemModalEdit === task.id && (
+            <ModalEditTask
+               taskId={task.id}
+               groupId={groupId}
+               taskName={task.name}
+               taskProgress={task.progress_percentage}
+            />
          )}
       </>
    );

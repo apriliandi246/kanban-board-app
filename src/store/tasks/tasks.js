@@ -44,15 +44,15 @@ const slice = createSlice({
                (task) => task.id === taskId
             );
             const indexTask = state.tasksGroupOne.indexOf(targetTask[0]);
-            state[indexTask] = data;
+            state.tasksGroupOne[indexTask] = data;
          }
 
          if (groupId === 2) {
             const targetTask = state.tasksGroupTwo.filter(
                (task) => task.id === taskId
             );
-            const indexTask = state.tasksGroupOne.indexOf(targetTask[0]);
-            state[indexTask] = data;
+            const indexTask = state.tasksGroupTwo.indexOf(targetTask[0]);
+            state.tasksGroupTwo[indexTask] = data;
          }
 
          if (groupId === 3) {
@@ -60,7 +60,7 @@ const slice = createSlice({
                (task) => task.id === taskId
             );
             const indexTask = state.tasksGroupThree.indexOf(targetTask[0]);
-            state[indexTask] = data;
+            state.tasksGroupThree[indexTask] = data;
          }
 
          if (groupId === 6) {
@@ -68,7 +68,7 @@ const slice = createSlice({
                (task) => task.id === taskId
             );
             const indexTask = state.tasksGroupFour.indexOf(targetTask[0]);
-            state[indexTask] = data;
+            state.tasksGroupFour[indexTask] = data;
          }
       },
 
@@ -194,14 +194,18 @@ export const deleteTask = (groupId, taskId) =>
       url: url + `todos/${groupId}/items/${taskId}`,
    });
 
-export const editTask = (groupId, taskId, { taskName, progress }) =>
+export const editTask = (groupId, taskId, { name, progress, target_todo_id }) =>
    apiCallBegan({
       taskId,
       groupId,
       method: "PATCH",
       onSuccess: editedTask.type,
-      data: { taskName, progress },
       url: url + `todos/${groupId}/items/${taskId}`,
+      data: {
+         name,
+         target_todo_id,
+         progress_percentage: progress,
+      },
    });
 
 export const moveTask = (prevGroupId, prevTaskId, targetGroupId) =>

@@ -1,7 +1,11 @@
 import { useDispatch } from "react-redux";
 import styles from "../styles/menus.module.css";
 import { moveTask } from "../store/tasks/tasks";
-import { updateMenuItem, updateDeleteTaskModal } from "../store/ui/ui";
+import {
+   updateMenuItem,
+   updateDeleteTaskModal,
+   updateEditTaskModal,
+} from "../store/ui/ui";
 
 export default function Menus({ groupId, taskId }) {
    const dispatch = useDispatch();
@@ -52,7 +56,10 @@ export default function Menus({ groupId, taskId }) {
             </button>
          )}
 
-         <button className={styles.menus__btn}>
+         <button
+            className={styles.menus__btn}
+            onClick={() => dispatch(updateEditTaskModal(taskId))}
+         >
             <img
                alt="Edit icon"
                src="./edit.png"
