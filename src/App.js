@@ -25,10 +25,12 @@ export default function App() {
             <div className={styles.content}>
                <h1 className={styles.content__title}>Product Roadmap</h1>
 
-               <Group groupId={1} type={"tasksGroupOne"} />
-               <Group groupId={2} type={"tasksGroupTwo"} />
-               <Group groupId={3} type={"tasksGroupThree"} />
-               <Group groupId={4} type={"tasksGroupFour"} />
+               <div className={styles.groups}>
+                  <Group groupId={1} type={"tasksGroupOne"} />
+                  <Group groupId={2} type={"tasksGroupTwo"} />
+                  <Group groupId={3} type={"tasksGroupThree"} />
+                  <Group groupId={4} type={"tasksGroupFour"} />
+               </div>
             </div>
          </div>
       </>

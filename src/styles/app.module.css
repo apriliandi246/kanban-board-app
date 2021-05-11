@@ -23,3 +23,8 @@
    margin-bottom: 24px;
    font: bold 20px "Rubik", sans-serif;
 }
+
+.groups {
+   display: flex;
+   padding-right: 30px;
+}
