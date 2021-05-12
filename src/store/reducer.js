@@ -1,5 +1,5 @@
-import ui from "./ui/ui";
-import tasks from "./tasks/tasks";
+import ui from "./ui/index";
+import tasks from "./tasks/index";
 import { combineReducers } from "redux";
 
 export default combineReducers({

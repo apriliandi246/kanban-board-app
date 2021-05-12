@@ -12,15 +12,12 @@ const slice = createSlice({
       updatedMenuItemStatus: (state, action) => {
          state.currentItemMenu = action.payload.id;
       },
-
       updatedNewTaskModalStatus: (state, action) => {
          state.currentNewTaskModal = action.payload.id;
       },
-
       updatedEditTaskModalStatus: (state, action) => {
          state.currentEditTaskModal = action.payload.id;
       },
-
       updatedDeleteTaskModalStatus: (state, action) => {
          state.currentDeleteTaskModal = action.payload.id;
       },

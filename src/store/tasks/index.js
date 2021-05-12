@@ -15,10 +15,8 @@ const slice = createSlice({
       tasksRequested: (state, action) => {
          state.loading = true;
       },
-
       tasksReceived: (state, action) => {
          state.loading = false;
-
          const { groupOne, groupTwo, groupThree, groupFour } = action.payload;
 
          state.tasksGroupOne = groupOne;
@@ -26,7 +24,6 @@ const slice = createSlice({
          state.tasksGroupThree = groupThree;
          state.tasksGroupFour = groupFour;
       },
-
       addedTask: (state, action) => {
          const { data, groupId } = action.payload;
 
@@ -35,7 +32,6 @@ const slice = createSlice({
          if (groupId === 3) state.tasksGroupThree.push(data);
          if (groupId === 6) state.tasksGroupFour.push(data);
       },
-
       editedTask: (state, action) => {
          const { groupId, taskId, data } = action.payload;
 
@@ -71,14 +67,9 @@ const slice = createSlice({
             state.tasksGroupFour[indexTask] = data;
          }
       },
-
       movedTask: (state, action) => {
-         const {
-            data,
-            prevTaskId,
-            prevGroupId,
-            targetGroupId,
-         } = action.payload;
+         const { data, prevTaskId, prevGroupId, targetGroupId } =
+            action.payload;
 
          if (prevGroupId === 1) {
             state.tasksGroupTwo.push(data);
@@ -116,7 +107,6 @@ const slice = createSlice({
             state.tasksGroupFour = newTask;
          }
       },
-
       deletedTask: (state, action) => {
          const { groupId, taskId } = action.payload;
 

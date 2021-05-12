@@ -38,8 +38,8 @@ export default function ModalDelete({ taskId, groupId }) {
                </button>
 
                <button
-                  className={styles.modal__delete_btn}
                   onClick={onDeleteTask}
+                  className={styles.modal__delete_btn}
                >
                   Delete
                </button>

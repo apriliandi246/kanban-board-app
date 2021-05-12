@@ -1,10 +1,10 @@
-import styles from "../styles/modal-create.module.css";
-import { useDispatch } from "react-redux";
-import { updateEditTaskModal } from "../store/ui/ui";
-import { editTask } from "../store/tasks/tasks";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { editTask } from "../store/tasks/tasks";
+import { updateEditTaskModal } from "../store/ui/ui";
+import styles from "../styles/modal-create.module.css";
 
-export default function ModalCreate({
+export default function ModalEditTask({
    groupId,
    taskId,
    taskName,
