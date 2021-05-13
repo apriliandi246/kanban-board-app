@@ -1,8 +1,8 @@
 import Menus from "./Menus";
 import ModalDelete from "./ModalDelete";
 import ModalEditTask from "./ModalEditTask";
+import { updateMenuItem } from "../store/ui";
 import styles from "../styles/item.module.css";
-import { updateMenuItem } from "../store/ui/ui";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Item({ task, groupId }) {

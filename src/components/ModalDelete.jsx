@@ -1,7 +1,7 @@
 import styles from "../styles/modal-delete.module.css";
 import { useDispatch } from "react-redux";
-import { deleteTask } from "../store/tasks/tasks";
-import { updateDeleteTaskModal } from "../store/ui/ui";
+import { deleteTask } from "../store/tasks";
+import { updateDeleteTaskModal } from "../store/ui";
 
 export default function ModalDelete({ taskId, groupId }) {
    const dispatch = useDispatch();

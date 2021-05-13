@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
+import { moveTask } from "../store/tasks";
 import styles from "../styles/menus.module.css";
-import { moveTask } from "../store/tasks/tasks";
 import {
    updateMenuItem,
    updateDeleteTaskModal,
    updateEditTaskModal,
-} from "../store/ui/ui";
+} from "../store/ui";
 
 export default function Menus({ groupId, taskId }) {
    const dispatch = useDispatch();
@@ -13,22 +13,24 @@ export default function Menus({ groupId, taskId }) {
    function moveLeft() {
       dispatch(
          moveTask(
-            groupId === 4 ? 6 : groupId,
             taskId,
+            groupId === 4 ? 6 : groupId,
             moveGroups[groupId - 1].moveLeft
          )
       );
+
       dispatch(updateMenuItem(-1));
    }
 
    function moveRight() {
       dispatch(
          moveTask(
-            groupId === 4 ? 6 : groupId,
             taskId,
+            groupId === 4 ? 6 : groupId,
             moveGroups[groupId - 1].moveRight
          )
       );
+
       dispatch(updateMenuItem(-1));
    }
 

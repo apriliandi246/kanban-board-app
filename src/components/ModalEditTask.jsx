@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editTask } from "../store/tasks/tasks";
-import { updateEditTaskModal } from "../store/ui/ui";
+import { editTask } from "../store/tasks";
+import { updateEditTaskModal } from "../store/ui";
 import styles from "../styles/modal-create.module.css";
 
 export default function ModalEditTask({
@@ -40,6 +40,7 @@ export default function ModalEditTask({
                   </label>
 
                   <input
+                     required
                      type="text"
                      id="task-name"
                      autoComplete="off"
@@ -57,6 +58,7 @@ export default function ModalEditTask({
 
                   <input
                      min="1"
+                     required
                      max="100"
                      type="number"
                      id="progress"

@@ -1,22 +1,14 @@
 import Item from "./Item";
 import NoTask from "./NoTask";
 import Skeleton from "./Skeleton";
-import { useEffect } from "react";
 import styles from "../styles/group.module.css";
-import { loadTasks } from "../store/tasks/tasks";
-import ModalCreate from "../components/ModalCreate";
-import { updateNewTaskModal } from "../store/ui/ui";
+import { updateNewTaskModal } from "../store/ui";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Group({ groupId, type }) {
    const dispatch = useDispatch();
    const tasks = useSelector((state) => state.entities[type]);
    const loading = useSelector((state) => state.entities.loading);
-   const statusModal = useSelector((state) => state.ui.currentNewTaskModal);
-
-   useEffect(() => {
-      dispatch(loadTasks());
-   }, []);
 
    return (
       <>
@@ -37,6 +29,7 @@ export default function Group({ groupId, type }) {
             >
                Group Task {groupId}
             </div>
+
             <div className={styles.group__date}>{dates[groupId - 1]}</div>
 
             {loading === true ? (
@@ -65,8 +58,6 @@ export default function Group({ groupId, type }) {
                New Task
             </button>
          </div>
-
-         {statusModal === groupId && <ModalCreate groupId={groupId} />}
       </>
    );
 }
@@ -80,31 +71,31 @@ const dates = [
 
 const groupStyles = [
    {
-      border: "1px solid #eb2f96",
       bgColor: "#fff9fb",
-      labelBorder: "1px solid #ffadd2",
       labelColor: "#eb2f96",
       labelBgColor: "#fff0f6",
+      border: "1px solid #eb2f96",
+      labelBorder: "1px solid #ffadd2",
    },
    {
-      border: "1px solid #7b61ff",
       bgColor: "#fcfafd",
-      labelBorder: "1px solid #d3adf7",
       labelColor: "#7b61ff",
       labelBgColor: "#f9f0ff",
+      border: "1px solid #7b61ff",
+      labelBorder: "1px solid #d3adf7",
    },
    {
-      border: "1px solid #2f54eb",
       bgColor: "#f7faff",
-      labelBorder: "1px solid #adc6ff",
       labelColor: "#2f54eb",
       labelBgColor: "#f0f5ff",
+      border: "1px solid #2f54eb",
+      labelBorder: "1px solid #adc6ff",
    },
    {
-      border: "1px solid #52c41a",
       bgColor: "#f8fef1",
-      labelBorder: "1px solid #b7eb8f",
       labelColor: "#52c41a",
       labelBgColor: "#f6ffed",
+      border: "1px solid #52c41a",
+      labelBorder: "1px solid #b7eb8f",
    },
 ];

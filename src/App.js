@@ -1,15 +1,23 @@
+import { useEffect } from "react";
 import Group from "./components/Group";
+import { loadTasks } from "./store/tasks";
+import { updateMenuItem } from "./store/ui";
 import styles from "./styles/app.module.css";
-import { updateMenuItem } from "./store/ui/ui";
+import ModalCreate from "./components/ModalCreate";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {
    const dispatch = useDispatch();
    const itemMenusId = useSelector((state) => state.ui.currentItemMenu);
+   const statusModal = useSelector((state) => state.ui.currentNewTaskModal);
 
    function closeItemMenus() {
       if (itemMenusId !== -1) dispatch(updateMenuItem(-1));
    }
+
+   useEffect(() => {
+      dispatch(loadTasks());
+   }, []);
 
    return (
       <>
@@ -33,6 +41,8 @@ export default function App() {
                </div>
             </div>
          </div>
+
+         {statusModal !== -1 && <ModalCreate groupId={statusModal} />}
       </>
    );
 }
