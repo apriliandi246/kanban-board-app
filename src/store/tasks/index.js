@@ -1,5 +1,12 @@
-import { apiCallBegan } from "../api";
 import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "../actionsCreator";
+
+const tasksGroup = [
+   "tasksGroupOne",
+   "tasksGroupTwo",
+   "tasksGroupThree",
+   "tasksGroupFour",
+];
 
 const slice = createSlice({
    name: "tasks",
@@ -15,67 +22,58 @@ const slice = createSlice({
       tasksRequested: (state, action) => {
          state.loading = true;
       },
+
       tasksReceived: (state, action) => {
-         state.loading = false;
          const { groupOne, groupTwo, groupThree, groupFour } = action.payload;
 
+         state.loading = false;
          state.tasksGroupOne = groupOne;
          state.tasksGroupTwo = groupTwo;
-         state.tasksGroupThree = groupThree;
          state.tasksGroupFour = groupFour;
+         state.tasksGroupThree = groupThree;
       },
+
       addedTask: (state, action) => {
          const { data, groupId } = action.payload;
-
-         if (groupId === 1) state.tasksGroupOne.push(data);
-         if (groupId === 2) state.tasksGroupTwo.push(data);
-         if (groupId === 3) state.tasksGroupThree.push(data);
-         if (groupId === 6) state.tasksGroupFour.push(data);
+         state[tasksGroup[groupId === 6 ? 4 - 1 : groupId - 1]].push(data);
       },
+
       editedTask: (state, action) => {
          const { groupId, taskId, data } = action.payload;
 
-         if (groupId === 1) {
-            const targetTask = state.tasksGroupOne.filter(
-               (task) => task.id === taskId
-            );
-            const indexTask = state.tasksGroupOne.indexOf(targetTask[0]);
-            state.tasksGroupOne[indexTask] = data;
-         }
+         const targetTask = state[
+            tasksGroup[groupId === 6 ? 4 - 1 : groupId - 1]
+         ].filter((task) => task.id === taskId);
 
-         if (groupId === 2) {
-            const targetTask = state.tasksGroupTwo.filter(
-               (task) => task.id === taskId
-            );
-            const indexTask = state.tasksGroupTwo.indexOf(targetTask[0]);
-            state.tasksGroupTwo[indexTask] = data;
-         }
+         const indexTask = state[
+            tasksGroup[groupId === 6 ? 4 - 1 : groupId - 1]
+         ].indexOf(targetTask[0]);
 
-         if (groupId === 3) {
-            const targetTask = state.tasksGroupThree.filter(
-               (task) => task.id === taskId
-            );
-            const indexTask = state.tasksGroupThree.indexOf(targetTask[0]);
-            state.tasksGroupThree[indexTask] = data;
-         }
-
-         if (groupId === 6) {
-            const targetTask = state.tasksGroupFour.filter(
-               (task) => task.id === taskId
-            );
-            const indexTask = state.tasksGroupFour.indexOf(targetTask[0]);
-            state.tasksGroupFour[indexTask] = data;
-         }
+         state[tasksGroup[groupId === 6 ? 4 - 1 : groupId - 1]][indexTask] =
+            data;
       },
+
+      deletedTask: (state, action) => {
+         const { groupId, taskId } = action.payload;
+
+         const newTask = state[
+            tasksGroup[groupId === 6 ? 4 - 1 : groupId - 1]
+         ].filter((task) => task.id !== taskId);
+
+         state[tasksGroup[groupId === 6 ? 4 - 1 : groupId - 1]] = newTask;
+      },
+
       movedTask: (state, action) => {
          const { data, prevTaskId, prevGroupId, targetGroupId } =
             action.payload;
 
          if (prevGroupId === 1) {
             state.tasksGroupTwo.push(data);
+
             const newTask = state.tasksGroupOne.filter(
                (task) => task.id !== prevTaskId
             );
+
             state.tasksGroupOne = newTask;
          }
 
@@ -86,6 +84,7 @@ const slice = createSlice({
             const newTask = state.tasksGroupTwo.filter(
                (task) => task.id !== prevTaskId
             );
+
             state.tasksGroupTwo = newTask;
          }
 
@@ -96,6 +95,7 @@ const slice = createSlice({
             const newTasks = state.tasksGroupThree.filter(
                (task) => task.id !== prevTaskId
             );
+
             state.tasksGroupThree = newTasks;
          }
 
@@ -104,37 +104,7 @@ const slice = createSlice({
             const newTask = state.tasksGroupFour.filter(
                (task) => task.id !== prevTaskId
             );
-            state.tasksGroupFour = newTask;
-         }
-      },
-      deletedTask: (state, action) => {
-         const { groupId, taskId } = action.payload;
 
-         if (groupId === 1) {
-            const newTask = state.tasksGroupOne.filter(
-               (task) => task.id !== taskId
-            );
-            state.tasksGroupOne = newTask;
-         }
-
-         if (groupId === 2) {
-            const newTask = state.tasksGroupTwo.filter(
-               (task) => task.id !== taskId
-            );
-            state.tasksGroupTwo = newTask;
-         }
-
-         if (groupId === 3) {
-            const newTask = state.tasksGroupThree.filter(
-               (task) => task.id !== taskId
-            );
-            state.tasksGroupThree = newTask;
-         }
-
-         if (groupId === 6) {
-            const newTask = state.tasksGroupFour.filter(
-               (task) => task.id !== taskId
-            );
             state.tasksGroupFour = newTask;
          }
       },
@@ -152,11 +122,11 @@ const {
 
 export default slice.reducer;
 
-const url = "https://todos-project-api.herokuapp.com/";
+const URL = "https://todos-project-api.herokuapp.com/";
 
 export const loadTasks = () =>
    apiCallBegan({
-      url,
+      url: URL,
       method: "GET",
       loadTask: true,
       onStart: tasksRequested.type,
@@ -168,7 +138,7 @@ export const addTask = (groupId, { name, progress_percentage }) =>
       groupId,
       method: "POST",
       onSuccess: addedTask.type,
-      url: url + `todos/${groupId}/items`,
+      url: URL + `todos/${groupId}/items`,
       data: {
          name: name.trim(),
          progress_percentage: parseInt(progress_percentage),
@@ -181,7 +151,7 @@ export const deleteTask = (groupId, taskId) =>
       groupId,
       method: "DELETE",
       onSuccess: deletedTask.type,
-      url: url + `todos/${groupId}/items/${taskId}`,
+      url: URL + `todos/${groupId}/items/${taskId}`,
    });
 
 export const editTask = (groupId, taskId, { name, progress, target_todo_id }) =>
@@ -190,7 +160,7 @@ export const editTask = (groupId, taskId, { name, progress, target_todo_id }) =>
       groupId,
       method: "PATCH",
       onSuccess: editedTask.type,
-      url: url + `todos/${groupId}/items/${taskId}`,
+      url: URL + `todos/${groupId}/items/${taskId}`,
       data: {
          name,
          target_todo_id,
@@ -206,5 +176,5 @@ export const moveTask = (prevGroupId, prevTaskId, targetGroupId) =>
       method: "PATCH",
       onSuccess: movedTask.type,
       data: { target_todo_id: targetGroupId },
-      url: url + `todos/${prevGroupId}/items/${prevTaskId}`,
+      url: URL + `todos/${prevGroupId}/items/${prevTaskId}`,
    });
