@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
+import { moveTask } from "../store/tasks";
 import styles from "../styles/menus.module.css";
-import { moveTask } from "../store/tasks/tasks";
 import {
    updateMenuItem,
    updateDeleteTaskModal,
    updateEditTaskModal,
-} from "../store/ui/ui";
+} from "../store/ui";
 
 export default function Menus({ groupId, taskId }) {
    const dispatch = useDispatch();

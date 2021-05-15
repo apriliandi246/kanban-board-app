@@ -1,6 +1,6 @@
 import Group from "./components/Group";
+import { updateMenuItem } from "./store/ui";
 import styles from "./styles/app.module.css";
-import { updateMenuItem } from "./store/ui/ui";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {

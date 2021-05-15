@@ -2,10 +2,10 @@ import Item from "./Item";
 import NoTask from "./NoTask";
 import Skeleton from "./Skeleton";
 import { useEffect } from "react";
+import { loadTasks } from "../store/tasks";
 import styles from "../styles/group.module.css";
-import { loadTasks } from "../store/tasks/tasks";
+import { updateNewTaskModal } from "../store/ui";
 import ModalCreate from "../components/ModalCreate";
-import { updateNewTaskModal } from "../store/ui/ui";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Group({ groupId, type }) {
