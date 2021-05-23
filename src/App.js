@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import Group from "./components/Group";
+import { loadTasks } from "./store/tasks";
 import { updateMenuItem } from "./store/ui";
 import styles from "./styles/app.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +12,10 @@ export default function App() {
    function closeItemMenus() {
       if (itemMenusId !== -1) dispatch(updateMenuItem(-1));
    }
+
+   useEffect(() => {
+      dispatch(loadTasks());
+   }, []);
 
    return (
       <>

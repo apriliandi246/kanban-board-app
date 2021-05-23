@@ -8,8 +8,7 @@
    position: absolute;
    align-items: center;
    justify-content: center;
-   backdrop-filter: blur(1px);
-   background-color: rgba(80, 73, 73, 0.2);
+   background-color: rgba(80, 73, 73, 0.6);
    animation: opacityAnimation 0.1s ease-in-out;
 }
 

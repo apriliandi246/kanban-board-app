@@ -1,9 +1,9 @@
 .group {
+   float: left;
    width: 306px;
    padding: 12px;
    border-radius: 4px;
    margin-right: 16px;
-   float: left;
 }
 
 .group__label {

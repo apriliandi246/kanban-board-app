@@ -1,8 +1,6 @@
 import Item from "./Item";
 import NoTask from "./NoTask";
 import Skeleton from "./Skeleton";
-import { useEffect } from "react";
-import { loadTasks } from "../store/tasks";
 import styles from "../styles/group.module.css";
 import { updateNewTaskModal } from "../store/ui";
 import ModalCreate from "../components/ModalCreate";
@@ -13,10 +11,6 @@ export default function Group({ groupId, type }) {
    const tasks = useSelector((state) => state.entities[type]);
    const loading = useSelector((state) => state.entities.loading);
    const statusModal = useSelector((state) => state.ui.currentNewTaskModal);
-
-   useEffect(() => {
-      dispatch(loadTasks());
-   }, []);
 
    return (
       <>
